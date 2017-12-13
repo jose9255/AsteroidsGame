@@ -1,6 +1,10 @@
 //your variable declarations here
+public int midX = 400;
+public int midY = 400; 
 Spaceship flyer = new Spaceship();
 Star[] nightSky = new Star[500];
+
+ArrayList <Asteroid> asteroids = new ArrayList<Asteroid>();
 public void setup() 
 {
   //your code here
@@ -10,17 +14,32 @@ public void setup()
   {
     nightSky[i] = new Star();
   }
+  for (int i = 0; i<20; i++)
+  {
+    asteroids.add(new Asteroid());
+  }
 }
 public void draw() 
 {
   //your code here
   background(0);
-  flyer.show();
-  flyer.move();
+
   for (int i = 0; i < nightSky.length; i++)
   {
     nightSky[i].show();
   }
+  for (int i = 0; i < asteroids.size(); i++) 
+  {
+    asteroids.get(i).show();
+    asteroids.get(i).move();
+    if (dist(flyer.getX(),flyer.getY(),asteroids.get(i).getX(), asteroids.get(i).getY() ) < 45)
+    {
+      asteroids.remove(i);
+
+    }
+  }
+  flyer.show();
+  flyer.move();
 }
 
 public void keyPressed()
@@ -49,5 +68,4 @@ public void keyPressed()
     flyer.setY((int)(Math.random() *800));
   }
 }
-
 
